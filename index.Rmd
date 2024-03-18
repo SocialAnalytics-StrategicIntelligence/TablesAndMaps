@@ -1,0 +1,39 @@
+---
+title: ''
+output: bookdown::html_document2
+---
+
+<img src="https://i.imgur.com/6U6q5jQ.png"/>
+
+
+<h1>Social Analytics and Strategic Intelligence</h1>
+
+<h2>Session 2: Maps</h2>
+
+
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+```
+
+
+```{r}
+library(sf)
+linkWorld_gpkg="https://github.com/SocialAnalytics-StrategicIntelligence/TablesAndMaps/raw/main/maps/worldMap.gpkg"
+sf::st_layers(linkWorld_gpkg)
+```
+
+```{r}
+countries=read_sf(linkWorld_gpkg,layer="countryBorders")
+rivers=read_sf(linkWorld_gpkg,layer="riverLines")
+cities=read_sf(linkWorld_gpkg,layer="cityPoints")
+```
+
+```{r}
+library(ggplot2)
+baseLayer=ggplot(data=countries)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=rivers, color='blue') + geom_sf(data=cities, color='red') 
+final
+
+```
+
