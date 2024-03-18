@@ -37,3 +37,24 @@ final
 
 ```
 
+```{r}
+linkBrazil_gpkg="https://github.com/SocialAnalytics-StrategicIntelligence/TablesAndMaps/raw/main/maps/brazilMaps_5641.gpkg"
+sf::st_layers(linkBrazil_gpkg)
+
+```
+```{r}
+brazil=read_sf(linkBrazil_gpkg,layer="country")
+brazil_rivers=read_sf(linkBrazil_gpkg,layer="rivers")
+brazil_cities=read_sf(linkBrazil_gpkg,layer="cities")
+brazil_centroid=read_sf(linkBrazil_gpkg,layer="centroid")
+```
+
+
+```{r}
+library(ggplot2)
+baseLayer=ggplot(data=brazil)  + geom_sf(fill='grey90') + theme_light()
+final=baseLayer + geom_sf(data=brazil_rivers, color='blue') + geom_sf(data=brazil_cities, color='orange') + geom_sf(data=brazil_centroid, color='red',size=5) 
+final
+
+```
+
